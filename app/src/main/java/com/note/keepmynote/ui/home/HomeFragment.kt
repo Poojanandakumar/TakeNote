@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.note.keepmynote.R
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
         binding.add.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_noteFragment)
         }
+
         return binding.root
     }
 }
