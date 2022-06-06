@@ -125,4 +125,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+    // for adding recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // for adding cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 }
