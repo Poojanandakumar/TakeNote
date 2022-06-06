@@ -2,4 +2,6 @@
     <string name="app_name">KeepMyNote</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="your_notes">Your Notes</string>
+    <string name="choose_a_title">Choose a title</string>
+    <string name="enter_your_note">Enter your note</string>
 </resources>
