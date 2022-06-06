@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+        if (supportActionBar != null) {
+            supportActionBar?.hide()
+        }
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_holder) as NavHostFragment
         navController = navHostFragment.navController
