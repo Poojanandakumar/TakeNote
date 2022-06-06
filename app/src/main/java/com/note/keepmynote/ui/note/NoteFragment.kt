@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentHomeBinding
 import com.note.keepmynote.databinding.FragmentNoteBinding
@@ -31,6 +32,10 @@ class NoteFragment : Fragment() {
         }
         binding.palegreen.setOnClickListener {
             binding.noteFragment.setBackgroundResource(R.color.palegreen)
+        }
+
+        binding.save.setOnClickListener {
+            findNavController().navigateUp()
         }
         return binding.root
     }
