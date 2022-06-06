@@ -10,7 +10,6 @@ import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by activityViewModels()

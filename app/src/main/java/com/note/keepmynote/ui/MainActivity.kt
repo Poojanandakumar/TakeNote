@@ -10,11 +10,14 @@ import com.note.keepmynote.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_nav_holder) as NavHostFragment
         navController = navHostFragment.navController
+        setContentView(binding.root)
     }
 }

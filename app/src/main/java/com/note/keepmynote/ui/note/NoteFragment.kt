@@ -12,7 +12,6 @@ import com.note.keepmynote.databinding.FragmentNoteBinding
 import com.note.keepmynote.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class NoteFragment : Fragment() {
     private val noteViewModel: NoteViewModel by activityViewModels()
     private lateinit var binding: FragmentNoteBinding
@@ -21,6 +20,18 @@ class NoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentNoteBinding.inflate(inflater, container, false)
+        binding.paleyellow.setOnClickListener {
+            binding.noteFragment.setBackgroundResource(R.color.paleyellow)
+        }
+        binding.paleblue.setOnClickListener {
+            binding.noteFragment.setBackgroundResource(R.color.paleblue)
+        }
+        binding.rose.setOnClickListener {
+            binding.noteFragment.setBackgroundResource(R.color.rose)
+        }
+        binding.palegreen.setOnClickListener {
+            binding.noteFragment.setBackgroundResource(R.color.palegreen)
+        }
         return binding.root
     }
 }
