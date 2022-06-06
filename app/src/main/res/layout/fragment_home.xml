@@ -31,4 +31,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_baseline_add_circle_outline_24"
+        android:background="@color/whitee"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="80dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
