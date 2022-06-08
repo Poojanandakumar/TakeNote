@@ -9,4 +9,8 @@ class NoteDataUseCase @Inject constructor(private val repository: NoteDataReposi
     fun addNoteData(noteData:NoteData): Result<Boolean> {
         return repository.addNoteData(noteData)
     }
+
+    fun getNoteData():Result<List<NoteData>>{
+        return repository.getNoteData()
+    }
 }

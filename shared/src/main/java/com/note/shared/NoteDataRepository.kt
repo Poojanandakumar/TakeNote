@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface NoteDataRepository {
-fun getNoteData(): Flow<List<NoteData>>
+fun getNoteData(): Result<List<NoteData>>
 fun addNoteData(noteData: NoteData): Result<Boolean>
 }
 
 class DefaultNoteDataRepository @Inject constructor(private val dataSource: NoteDataSource):NoteDataRepository{
-    override fun getNoteData(): Flow<List<NoteData>> {
+    override fun getNoteData(): Result<List<NoteData>> {
         return dataSource.getNoteData()
     }
 

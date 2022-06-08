@@ -11,18 +11,31 @@ import kotlinx.coroutines.flow.flow
 import java.util.concurrent.TimeUnit
 
 interface NoteDataSource {
-    fun getNoteData(): Flow<List<NoteData>>
+    fun getNoteData(): Result<List<NoteData>>
     fun addNoteData(noteData: NoteData): Result<Boolean>
 }
 
 class FirebaseNoteDataSource : NoteDataSource {
     private val firebaseFirestore = Firebase.firestore
-    override fun getNoteData(): Flow<List<NoteData>> = flow {
-        val mutableList = mutableListOf<NoteData>(NoteData("a", "b", "0"))
-        emit(mutableList)
+    override fun getNoteData(): Result<List<NoteData>> {
+        return try {
+            val list = arrayListOf<NoteData>()
+            val result = firebaseFirestore.collection(Constants.NOTES).get()
+            val task = Tasks.await(result, 20, TimeUnit.SECONDS)
+            task.documents.forEach {
+                val title =
+                    it.data?.getValue(Constants.TITLE).toString()
+                val note = it.data?.getValue(Constants.NOTE).toString()
+                val color = it.data?.getValue(Constants.COLOR).toString()
+                list.add(NoteData(title, note, color))
+            }
+            Result.Success(list)
+        }catch (e:Exception){
+            Result.Error(e)
+        }
     }
 
-    override fun addNoteData(noteData: NoteData):Result<Boolean> {
+    override fun addNoteData(noteData: NoteData): Result<Boolean> {
         val data = hashMapOf(
             Constants.NOTE to noteData.note,
             Constants.TITLE to noteData.title,

@@ -12,6 +12,7 @@ import com.note.shared.util.Event
 import com.note.shared.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -21,6 +22,9 @@ class NoteViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
     ViewModel() {
     private val _added = MutableLiveData<Event<Boolean>>()
     val added: LiveData<Event<Boolean>> = _added
+
+    private val _data = MutableLiveData<Event<List<NoteData>>>()
+    val data:LiveData<Event<List<NoteData>>> = _data
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
@@ -41,4 +45,5 @@ class NoteViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
             }
         }
     }
+
 }
