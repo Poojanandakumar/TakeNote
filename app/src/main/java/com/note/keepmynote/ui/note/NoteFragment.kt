@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentNoteBinding
+import com.note.shared.util.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
-
+@AndroidEntryPoint
 class NoteFragment : Fragment() {
     private val noteViewModel: NoteViewModel by activityViewModels()
     private lateinit var binding: FragmentNoteBinding
@@ -93,8 +97,13 @@ class NoteFragment : Fragment() {
         val note = binding.noteEdit.text.toString()
 
         binding.save.setOnClickListener {
-            findNavController().navigateUp()
+            noteViewModel.abc()
         }
+
+        noteViewModel.aboutData.observe(viewLifecycleOwner,EventObserver{
+            Toast.makeText(requireContext(), it[0].note, Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        })
         return binding.root
     }
 }

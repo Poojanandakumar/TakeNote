@@ -2,9 +2,7 @@ package com.note.shared.di
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.note.shared.DefaultNoteDataRepository
-import com.note.shared.NoteDataRepository
-import com.note.shared.NoteDataSource
+import com.note.shared.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +17,17 @@ object AppModule {
     @Provides
     fun provideNoteRepository(noteDataSource: NoteDataSource): NoteDataRepository {
         return DefaultNoteDataRepository(noteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNoteDataSource(): NoteDataSource {
+        return FirebaseNoteDataSource()
+    }
+
+    @Singleton
+    @Provides
+    fun provideNoteDataUseCase(noteDataRepository: NoteDataRepository): NoteDataUseCase {
+        return NoteDataUseCase(noteDataRepository)
     }
 }

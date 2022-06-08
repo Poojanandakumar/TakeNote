@@ -12,7 +12,7 @@ fun addNoteData(noteData: NoteData):Result<Boolean>
 
 class DefaultNoteDataRepository @Inject constructor(private val dataSource: NoteDataSource):NoteDataRepository{
     override fun getNoteData(): Flow<List<NoteData>> {
-        TODO("Not yet implemented")
+        return dataSource.getNoteData()
     }
 
     override fun addNoteData(noteData: NoteData):Result<Boolean> {
