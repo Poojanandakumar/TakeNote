@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentNoteBinding
+import com.note.model.NoteData
 import com.note.shared.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -20,7 +21,7 @@ class NoteFragment : Fragment() {
     private val noteViewModel: NoteViewModel by activityViewModels()
     private lateinit var binding: FragmentNoteBinding
 
-    private var colorIs:Int = 0
+    private var colorIs = "0"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class NoteFragment : Fragment() {
                 )
             )
 
-            colorIs = R.color.paleyellow
+            colorIs = "1"
         }
         binding.paleblue.setOnClickListener {
             binding.noteFragment.setBackgroundResource(R.color.paleblue)
@@ -58,7 +59,7 @@ class NoteFragment : Fragment() {
                     R.color.paleblue
                 )
             )
-            colorIs = R.color.paleblue
+            colorIs = "2"
         }
         binding.rose.setOnClickListener {
             binding.noteFragment.setBackgroundResource(R.color.rose)
@@ -74,7 +75,7 @@ class NoteFragment : Fragment() {
                     R.color.rose
                 )
             )
-            colorIs = R.color.rose
+            colorIs = "3"
         }
         binding.palegreen.setOnClickListener {
             binding.noteFragment.setBackgroundResource(R.color.palegreen)
@@ -90,18 +91,18 @@ class NoteFragment : Fragment() {
                     R.color.palegreen
                 )
             )
-            colorIs = R.color.palegreen
+            colorIs = "4"
         }
-
-        val title = binding.titleEdit.text.toString()
-        val note = binding.noteEdit.text.toString()
 
         binding.save.setOnClickListener {
-            noteViewModel.abc()
+            noteViewModel.addNoteData(NoteData(binding.titleEdit.text.toString(),binding.noteEdit.text.toString(),colorIs))
         }
 
-        noteViewModel.aboutData.observe(viewLifecycleOwner,EventObserver{
-            Toast.makeText(requireContext(), it[0].note, Toast.LENGTH_SHORT).show()
+        noteViewModel.error.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+        }
+
+        noteViewModel.added.observe(viewLifecycleOwner,EventObserver{
             findNavController().navigateUp()
         })
         return binding.root
