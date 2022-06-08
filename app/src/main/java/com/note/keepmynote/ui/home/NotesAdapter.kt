@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.note.keepmynote.R
+import com.note.keepmynote.ui.note.NoteViewModel
 import com.note.model.NoteData
 
-class NotesAdapter(private val mList: List<NoteData>, val context: Context) :
+class NotesAdapter(
+    private val mList: List<NoteData>,
+    private val context: Context,
+    private val viewModel: HomeViewModel
+) :
     RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -66,6 +70,9 @@ class NotesAdapter(private val mList: List<NoteData>, val context: Context) :
                     )
                 )
             }
+        }
+        holder.cardView.setOnClickListener {
+            viewModel.navigateToNote(NoteData(item.title, item.note, item.color, item.id))
         }
     }
 

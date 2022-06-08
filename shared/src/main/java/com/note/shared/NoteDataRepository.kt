@@ -1,9 +1,7 @@
 package com.note.shared
 
-import android.provider.ContactsContract
 import com.note.model.NoteData
 import com.note.shared.util.Result
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface NoteDataRepository {

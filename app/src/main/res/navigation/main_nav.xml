@@ -20,5 +20,21 @@
         android:id="@+id/noteFragment"
         android:name="com.note.keepmynote.ui.note.NoteFragment"
         android:label="fragment_note"
-        tools:layout="@layout/fragment_note" />
+        tools:layout="@layout/fragment_note" >
+        <action
+            android:id="@+id/action_noteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="note"
+            app:argType="string" />
+        <argument
+            android:name="color"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

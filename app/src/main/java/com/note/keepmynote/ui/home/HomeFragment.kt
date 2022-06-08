@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentHomeBinding
+import com.note.keepmynote.ui.note.NoteViewModel
 import com.note.shared.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,19 +30,36 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         homeViewModel.getAllData()
-        homeViewModel.data.observe(viewLifecycleOwner,EventObserver{
+        homeViewModel.data.observe(viewLifecycleOwner, EventObserver {
             val recyclerView = binding.root.findViewById<RecyclerView>(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerView.adapter = NotesAdapter(it,requireContext())
+            binding.recyclerView.adapter = NotesAdapter(it, requireContext(), homeViewModel)
         })
 
-        homeViewModel.error.observe(viewLifecycleOwner){
+        homeViewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
         }
 
         binding.add.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_noteFragment)
+            //todo check already existing id and give id to note data
+            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
+                "",
+                "",
+                "",
+                0
+            )
+            findNavController().navigate(action)
         }
+
+        homeViewModel.clickedData.observe(viewLifecycleOwner, EventObserver {
+            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
+                it.title,
+                it.note,
+                it.color,
+                it.id
+            )
+            findNavController().navigate(action)
+        })
 
         return binding.root
     }

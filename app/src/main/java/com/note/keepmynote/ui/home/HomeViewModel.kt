@@ -20,6 +20,9 @@ class HomeViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
     private val _data = MutableLiveData<Event<List<NoteData>>>()
     val data: LiveData<Event<List<NoteData>>> = _data
 
+    private val _clickedData = MutableLiveData<Event<NoteData>>()
+    val clickedData:LiveData<Event<NoteData>> = _clickedData
+
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
 
@@ -38,5 +41,8 @@ class HomeViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
 
             }
         }
+    }
+    fun navigateToNote(noteReceivingData: NoteData){
+        _clickedData.value = Event(noteReceivingData)
     }
 }

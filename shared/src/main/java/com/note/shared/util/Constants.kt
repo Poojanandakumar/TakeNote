@@ -5,4 +5,5 @@ object Constants {
     const val NOTE = "note"
     const val TITLE = "title"
     const val COLOR = "color"
+    const val ID = "id"
 }

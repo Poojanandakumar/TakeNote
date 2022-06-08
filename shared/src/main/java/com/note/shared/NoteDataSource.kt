@@ -6,8 +6,6 @@ import com.google.firebase.ktx.Firebase
 import com.note.model.NoteData
 import com.note.shared.util.Constants
 import com.note.shared.util.Result
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.util.concurrent.TimeUnit
 
 interface NoteDataSource {
@@ -27,10 +25,11 @@ class FirebaseNoteDataSource : NoteDataSource {
                     it.data?.getValue(Constants.TITLE).toString()
                 val note = it.data?.getValue(Constants.NOTE).toString()
                 val color = it.data?.getValue(Constants.COLOR).toString()
-                list.add(NoteData(title, note, color))
+                val id = it.data?.getValue(Constants.ID) as Long
+                list.add(NoteData(title, note, color, id.toInt()))
             }
             Result.Success(list)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Result.Error(e)
         }
     }
@@ -39,7 +38,8 @@ class FirebaseNoteDataSource : NoteDataSource {
         val data = hashMapOf(
             Constants.NOTE to noteData.note,
             Constants.TITLE to noteData.title,
-            Constants.COLOR to noteData.color
+            Constants.COLOR to noteData.color,
+            Constants.ID to noteData.id
         )
         return try {
             val result = firebaseFirestore.collection(Constants.NOTES)

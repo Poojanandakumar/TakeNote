@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.note.keepmynote.R
 import com.note.keepmynote.databinding.FragmentNoteBinding
 import com.note.model.NoteData
@@ -22,6 +24,7 @@ class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
 
     private var colorIs = "0"
+    private val args:NoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,16 +98,37 @@ class NoteFragment : Fragment() {
         }
 
         binding.save.setOnClickListener {
-            noteViewModel.addNoteData(NoteData(binding.titleEdit.text.toString(),binding.noteEdit.text.toString(),colorIs))
+            noteViewModel.addNoteData(
+                NoteData(
+                    binding.titleEdit.text.toString(),
+                    binding.noteEdit.text.toString(),
+                    colorIs,args.id
+                )
+            )
         }
 
-        noteViewModel.error.observe(viewLifecycleOwner){
+        noteViewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
         }
 
-        noteViewModel.added.observe(viewLifecycleOwner,EventObserver{
+        noteViewModel.added.observe(viewLifecycleOwner, EventObserver {
             findNavController().navigateUp()
         })
+
+            binding.titleEdit.setText(args.title)
+            binding.noteEdit.setText(args.note)
+            binding.cardViewEditNote.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.paleOrange
+                )
+            )
+            binding.titleCardView.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.paleOrange
+                )
+            )
         return binding.root
     }
 }
