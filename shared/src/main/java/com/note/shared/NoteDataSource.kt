@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 interface NoteDataSource {
     fun getNoteData(): Result<List<NoteData>>
     fun addNoteData(noteData: NoteData): Result<Boolean>
+    fun getCurrentIdList(): Result<List<Int>>
 }
 
 class FirebaseNoteDataSource : NoteDataSource {
@@ -49,6 +50,21 @@ class FirebaseNoteDataSource : NoteDataSource {
             val task = Tasks.await(result, 20, TimeUnit.SECONDS)
 
             Result.Success(true)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override fun getCurrentIdList(): Result<List<Int>> {
+        return try {
+            val list = arrayListOf<Int>()
+            val result = firebaseFirestore.collection(Constants.NOTES).get()
+            val task = Tasks.await(result, 20, TimeUnit.SECONDS)
+            task.documents.forEach {
+                val id = it.data?.getValue(Constants.ID) as Long
+                list.add(id.toInt())
+            }
+            Result.Success(list)
         } catch (e: Exception) {
             Result.Error(e)
         }

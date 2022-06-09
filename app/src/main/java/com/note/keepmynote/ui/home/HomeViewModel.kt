@@ -21,7 +21,10 @@ class HomeViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
     val data: LiveData<Event<List<NoteData>>> = _data
 
     private val _clickedData = MutableLiveData<Event<NoteData>>()
-    val clickedData:LiveData<Event<NoteData>> = _clickedData
+    val clickedData: LiveData<Event<NoteData>> = _clickedData
+
+    private val _currentIdList = MutableLiveData<Event<List<Int>>>()
+    val currentIdList: LiveData<Event<List<Int>>> = _currentIdList
 
     private val _error = MutableLiveData<Exception>()
     val error: LiveData<Exception> = _error
@@ -38,11 +41,28 @@ class HomeViewModel @Inject constructor(private val noteDataUseCase: NoteDataUse
                     }
                     else -> {}
                 }
-
             }
         }
     }
-    fun navigateToNote(noteReceivingData: NoteData){
+
+    fun navigateToNote(noteReceivingData: NoteData) {
         _clickedData.value = Event(noteReceivingData)
+    }
+
+    fun getCurrentIdList() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                when (val idList = noteDataUseCase.getCurrentIdList()) {
+                    is Result.Success -> {
+                        _currentIdList.postValue(Event(idList.data))
+                    }
+                    is Result.Error -> {
+                        _error.postValue(idList.exception)
+                    }
+                    else -> {}
+                }
+            }
+        }
+
     }
 }

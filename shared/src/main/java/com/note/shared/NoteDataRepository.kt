@@ -5,17 +5,23 @@ import com.note.shared.util.Result
 import javax.inject.Inject
 
 interface NoteDataRepository {
-fun getNoteData(): Result<List<NoteData>>
-fun addNoteData(noteData: NoteData): Result<Boolean>
+    fun getNoteData(): Result<List<NoteData>>
+    fun addNoteData(noteData: NoteData): Result<Boolean>
+    fun getCurrentIdList(): Result<List<Int>>
 }
 
-class DefaultNoteDataRepository @Inject constructor(private val dataSource: NoteDataSource):NoteDataRepository{
+class DefaultNoteDataRepository @Inject constructor(private val dataSource: NoteDataSource) :
+    NoteDataRepository {
     override fun getNoteData(): Result<List<NoteData>> {
         return dataSource.getNoteData()
     }
 
-    override fun addNoteData(noteData: NoteData):Result<Boolean> {
+    override fun addNoteData(noteData: NoteData): Result<Boolean> {
         return dataSource.addNoteData(noteData)
+    }
+
+    override fun getCurrentIdList(): Result<List<Int>> {
+        return dataSource.getCurrentIdList()
     }
 
 }

@@ -37,14 +37,17 @@ class HomeFragment : Fragment() {
         }
 
         binding.add.setOnClickListener {
-            //todo check already existing id and give id to note data
-            val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
-                "",
-                "",
-                "",
-                0
-            )
-            findNavController().navigate(action)
+            homeViewModel.getCurrentIdList()
+            homeViewModel.currentIdList.observe(viewLifecycleOwner, EventObserver {
+                val id = createANewId(it)
+                val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
+                    "",
+                    "",
+                    "",
+                    id
+                )
+                findNavController().navigate(action)
+            })
         }
 
         homeViewModel.clickedData.observe(viewLifecycleOwner, EventObserver {
@@ -58,5 +61,20 @@ class HomeFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+
+    private fun createANewId(listOfCurrentId: List<Int>): Int {
+        var i = 0
+        var id = 0
+        while (i < listOfCurrentId.size) {
+            if (listOfCurrentId.contains(id)) {
+                id += 1
+                i += 1
+            } else {
+                break
+            }
+        }
+        return id
     }
 }
