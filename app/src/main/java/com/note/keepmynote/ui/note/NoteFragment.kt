@@ -24,7 +24,7 @@ class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
 
     private var colorIs = "0"
-    private val args:NoteFragmentArgs by navArgs()
+    private val args: NoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,7 +102,7 @@ class NoteFragment : Fragment() {
                 NoteData(
                     binding.titleEdit.text.toString(),
                     binding.noteEdit.text.toString(),
-                    colorIs,args.id
+                    colorIs, args.id
                 )
             )
         }
@@ -115,20 +115,81 @@ class NoteFragment : Fragment() {
             findNavController().navigateUp()
         })
 
-            binding.titleEdit.setText(args.title)
-            binding.noteEdit.setText(args.note)
-            binding.cardViewEditNote.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.paleOrange
+        binding.titleEdit.setText(args.title)
+        binding.noteEdit.setText(args.note)
+
+        when (args.color) {
+            "1" -> {
+                binding.cardViewEditNote.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleyellow
+                    )
                 )
-            )
-            binding.titleCardView.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.paleOrange
+                binding.titleCardView.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleyellow
+                    )
                 )
-            )
+            }
+            "2" -> {
+                binding.cardViewEditNote.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleblue
+                    )
+                )
+                binding.titleCardView.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleblue
+                    )
+                )
+            }
+            "3" -> {
+                binding.cardViewEditNote.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.rose
+                    )
+                )
+                binding.titleCardView.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.rose
+                    )
+                )
+            }
+            "4" -> {
+                binding.cardViewEditNote.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.palegreen
+                    )
+                )
+                binding.titleCardView.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.palegreen
+                    )
+                )
+            }
+            "0" -> {
+                binding.cardViewEditNote.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleyellow
+                    )
+                )
+                binding.titleCardView.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.paleyellow
+                    )
+                )
+            }
+        }
         return binding.root
     }
 }
