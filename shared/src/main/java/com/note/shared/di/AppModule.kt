@@ -1,12 +1,10 @@
 package com.note.shared.di
 
-import android.content.Context
-import android.net.ConnectivityManager
 import com.note.shared.*
+import com.note.shared.domain.GetCurrentIdListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -27,7 +25,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNoteDataUseCase(noteDataRepository: NoteDataRepository): NoteDataUseCase {
-        return NoteDataUseCase(noteDataRepository)
+    fun provideNoteDataUseCase(noteDataRepository: NoteDataRepository): GetCurrentIdListUseCase {
+        return GetCurrentIdListUseCase(noteDataRepository)
     }
 }

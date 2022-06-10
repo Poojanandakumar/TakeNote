@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.note.model.NoteData
-import com.note.shared.DeleteNoteUseCase
-import com.note.shared.NoteDataUseCase
+import com.note.shared.domain.DeleteNoteUseCase
+import com.note.shared.domain.GetCurrentIdListUseCase
+import com.note.shared.domain.GetNoteDataUseCase
 import com.note.shared.util.Event
 import com.note.shared.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val noteDataUseCase: NoteDataUseCase,
+    private val getCurrentIdListUseCase: GetCurrentIdListUseCase,
+    private val getNoteData: GetNoteDataUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase
 ) :
     ViewModel() {
@@ -39,7 +41,7 @@ class HomeViewModel @Inject constructor(
     fun getAllData() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                when (val data = noteDataUseCase.getNoteData()) {
+                when (val data = getNoteData.getNoteData()) {
                     is Result.Error -> {
                         _error.postValue(data.exception)
                     }
@@ -75,7 +77,7 @@ class HomeViewModel @Inject constructor(
     fun getCurrentIdList() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                when (val idList = noteDataUseCase.getCurrentIdList()) {
+                when (val idList = getCurrentIdListUseCase.getCurrentIdList()) {
                     is Result.Success -> {
                         _currentIdList.postValue(Event(idList.data))
                     }

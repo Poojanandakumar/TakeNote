@@ -1,6 +1,6 @@
-package com.note.shared
+package com.note.shared.domain
 
-import com.note.model.NoteData
+import com.note.shared.NoteDataRepository
 import com.note.shared.util.Result
 import javax.inject.Inject
 
