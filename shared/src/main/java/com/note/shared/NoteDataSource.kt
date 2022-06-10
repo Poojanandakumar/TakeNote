@@ -43,12 +43,20 @@ class FirebaseNoteDataSource : NoteDataSource {
             Constants.ID to noteData.id
         )
         return try {
-            val result = firebaseFirestore.collection(Constants.NOTES)
-                .document()
-                .set(data)
-
-            val task = Tasks.await(result, 20, TimeUnit.SECONDS)
-
+            val resultIs = firebaseFirestore.collection(Constants.NOTES)
+                .whereEqualTo(Constants.ID, noteData.id).get()
+            val task = Tasks.await(resultIs, 20, TimeUnit.SECONDS)
+            if (task.documents.isEmpty()) {
+                val result = firebaseFirestore.collection(Constants.NOTES)
+                    .document()
+                    .set(noteData)
+            } else {
+                task.documents.forEach {
+                    val result = firebaseFirestore.collection(Constants.NOTES)
+                        .document(it.id)
+                        .set(noteData)
+                }
+            }
             Result.Success(true)
         } catch (e: Exception) {
             Result.Error(e)
