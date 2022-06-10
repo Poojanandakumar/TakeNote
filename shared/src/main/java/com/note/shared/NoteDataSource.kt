@@ -12,6 +12,7 @@ interface NoteDataSource {
     fun getNoteData(): Result<List<NoteData>>
     fun addNoteData(noteData: NoteData): Result<Boolean>
     fun getCurrentIdList(): Result<List<Int>>
+    fun deleteNoteData(id: Int): Result<Boolean>
 }
 
 class FirebaseNoteDataSource : NoteDataSource {
@@ -49,12 +50,12 @@ class FirebaseNoteDataSource : NoteDataSource {
             if (task.documents.isEmpty()) {
                 val result = firebaseFirestore.collection(Constants.NOTES)
                     .document()
-                    .set(noteData)
+                    .set(data)
             } else {
                 task.documents.forEach {
                     val result = firebaseFirestore.collection(Constants.NOTES)
                         .document(it.id)
-                        .set(noteData)
+                        .set(data)
                 }
             }
             Result.Success(true)
@@ -73,6 +74,21 @@ class FirebaseNoteDataSource : NoteDataSource {
                 list.add(id.toInt())
             }
             Result.Success(list)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override fun deleteNoteData(id: Int): Result<Boolean> {
+        return try {
+
+            val result =
+                firebaseFirestore.collection(Constants.NOTES).whereEqualTo(Constants.ID, id).get()
+            val task = Tasks.await(result, 20, TimeUnit.SECONDS)
+            task.documents.forEach {
+                it.reference.delete()
+            }
+            Result.Success(true)
         } catch (e: Exception) {
             Result.Error(e)
         }

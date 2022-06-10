@@ -60,6 +60,13 @@ class HomeFragment : Fragment() {
             findNavController().navigate(action)
         })
 
+        homeViewModel.deleted.observe(viewLifecycleOwner,EventObserver{
+            if(it){
+                Toast.makeText(requireContext(), "Note deleted successfully", Toast.LENGTH_SHORT).show()
+                homeViewModel.getAllData()
+            }
+        })
+
         return binding.root
     }
 

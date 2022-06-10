@@ -8,6 +8,7 @@ interface NoteDataRepository {
     fun getNoteData(): Result<List<NoteData>>
     fun addNoteData(noteData: NoteData): Result<Boolean>
     fun getCurrentIdList(): Result<List<Int>>
+    fun deleteNoteData(id:Int):Result<Boolean>
 }
 
 class DefaultNoteDataRepository @Inject constructor(private val dataSource: NoteDataSource) :
@@ -22,6 +23,10 @@ class DefaultNoteDataRepository @Inject constructor(private val dataSource: Note
 
     override fun getCurrentIdList(): Result<List<Int>> {
         return dataSource.getCurrentIdList()
+    }
+
+    override fun deleteNoteData(id: Int): Result<Boolean> {
+       return dataSource.deleteNoteData(id)
     }
 
 }

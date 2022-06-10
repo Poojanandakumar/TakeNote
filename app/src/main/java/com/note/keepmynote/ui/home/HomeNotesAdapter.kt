@@ -1,6 +1,8 @@
 package com.note.keepmynote.ui.home
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.note.keepmynote.R
 import com.note.model.NoteData
+
 
 class HomeNotesAdapter(
     private val mList: List<NoteData>,
@@ -72,6 +75,18 @@ class HomeNotesAdapter(
         }
         holder.cardView.setOnClickListener {
             viewModel.navigateToNote(NoteData(item.title, item.note, item.color, item.id))
+        }
+        holder.cardView.setOnLongClickListener {
+            AlertDialog.Builder(context)
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton("Yes"
+                ) { dialog, which ->
+                    viewModel.deleteNoteData(item.id)
+                }
+                .setNegativeButton("No", null)
+                .show()
+
+            true
         }
     }
 
