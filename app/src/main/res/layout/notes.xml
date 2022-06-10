@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:maxLength="25"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/note"
-            android:layout_width="344dp"
+            android:layout_width="385dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="38dp"
