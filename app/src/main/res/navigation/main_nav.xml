@@ -32,7 +32,8 @@
             app:argType="string" />
         <argument
             android:name="color"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="3" />
         <argument
             android:name="id"
             app:argType="integer" />

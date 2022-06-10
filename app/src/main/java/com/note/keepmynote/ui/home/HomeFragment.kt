@@ -43,8 +43,8 @@ class HomeFragment : Fragment() {
                 val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
                     "",
                     "",
-                    "",
-                    id
+                    id,
+                    "3"
                 )
                 findNavController().navigate(action)
             })
@@ -54,8 +54,8 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
                 it.title,
                 it.note,
-                it.color,
-                it.id
+                it.id,
+                it.color
             )
             findNavController().navigate(action)
         })

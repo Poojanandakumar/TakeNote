@@ -23,13 +23,14 @@ class NoteFragment : Fragment() {
     private val noteViewModel: NoteViewModel by activityViewModels()
     private lateinit var binding: FragmentNoteBinding
 
-    private var colorIs = "0"
     private val args: NoteFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        var colorIs = args.color
         binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.paleyellow.setOnClickListener {
             binding.noteFragment.setBackgroundResource(R.color.paleyellow)

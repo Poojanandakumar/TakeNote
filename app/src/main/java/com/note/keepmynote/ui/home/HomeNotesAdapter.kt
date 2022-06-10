@@ -2,7 +2,6 @@ package com.note.keepmynote.ui.home
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +67,7 @@ class HomeNotesAdapter(
                 holder.cardView.setCardBackgroundColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.paleOrange
+                        R.color.paleviolet
                     )
                 )
             }
