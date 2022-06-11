@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-xxhdpi/splash_background_dark.xml" value="0.1705" />
+        <entry key="app/src/main/res/drawable-xxhdpi/splash_background_light.xml" value="0.1705" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2315" />
         <entry key="app/src/main/res/drawable/paleblue.xml" value="0.2315" />
         <entry key="app/src/main/res/drawable/palegreen.xml" value="0.2315" />

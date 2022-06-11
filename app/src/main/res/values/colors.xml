@@ -9,6 +9,7 @@
     <color name="translucent_black">#C4000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="whitee">#00000000</color>
+    <color name="keep_dark">#FF24272A</color>
 
 
     <color name="paleyellow">#F1EAB3</color>
