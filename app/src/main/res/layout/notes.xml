@@ -6,6 +6,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
+        android:elevation="12dp"
+        app:cardUseCompatPadding="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"

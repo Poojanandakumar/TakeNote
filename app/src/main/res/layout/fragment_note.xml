@@ -5,6 +5,7 @@
     android:id="@+id/noteFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/translucent_black"
     tools:context=".ui.note.NoteFragment">
 
 
@@ -79,11 +80,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@null"
             android:hint="@string/choose_a_title"
-            android:inputType="textVisiblePassword"
+            android:inputType="textCapSentences"
             android:maxLength="25"
             android:scrollbars="horizontal"
             app:layout_constraintLeft_toLeftOf="parent" />
@@ -110,7 +111,7 @@
             android:layout_marginEnd="10dp"
             android:background="@null"
             android:hint="@string/enter_your_note"
-            android:inputType="textVisiblePassword"
+            android:inputType="textCapSentences"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_edit" />
     </androidx.cardview.widget.CardView>
