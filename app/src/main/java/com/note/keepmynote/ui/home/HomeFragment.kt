@@ -27,9 +27,15 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getAllData()
         homeViewModel.data.observe(viewLifecycleOwner, EventObserver {
-            val recyclerView = binding.root.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerView.adapter = HomeNotesAdapter(it, requireContext(), homeViewModel)
+            if(it.isEmpty()){
+                hideRecyclerViewAndShowAddNoteButton()
+            }else{
+                hideAddNoteButtonAndShowRecyclerView()
+                val recyclerView = binding.root.findViewById<RecyclerView>(R.id.recyclerView)
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                binding.recyclerView.adapter = HomeNotesAdapter(it, requireContext(), homeViewModel)
+            }
+
         })
 
         homeViewModel.error.observe(viewLifecycleOwner) {
@@ -50,6 +56,22 @@ class HomeFragment : Fragment() {
             })
         }
 
+        binding.addCenterImage.setOnClickListener {
+            homeViewModel.getCurrentIdList()
+            homeViewModel.currentIdList.observe(viewLifecycleOwner, EventObserver {
+                val id = createANewId(it)
+                val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
+                    "",
+                    "",
+                    id,
+                    "3"
+                )
+                findNavController().navigate(action)
+            })
+        }
+
+
+
         homeViewModel.clickedData.observe(viewLifecycleOwner, EventObserver {
             val action = HomeFragmentDirections.actionHomeFragmentToNoteFragment(
                 it.title,
@@ -68,6 +90,20 @@ class HomeFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun hideAddNoteButtonAndShowRecyclerView() {
+        binding.addNote.visibility = View.INVISIBLE
+        binding.addCenterImage.visibility = View.INVISIBLE
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.add.visibility = View.VISIBLE
+    }
+
+    private fun hideRecyclerViewAndShowAddNoteButton() {
+        binding.addNote.visibility = View.VISIBLE
+        binding.addCenterImage.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.INVISIBLE
+        binding.add.visibility = View.INVISIBLE
     }
 
 
