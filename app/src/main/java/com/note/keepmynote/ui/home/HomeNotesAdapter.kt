@@ -77,9 +77,9 @@ class HomeNotesAdapter(
         }
         holder.cardView.setOnLongClickListener {
             AlertDialog.Builder(context)
-                .setMessage("Are you sure you want to delete this Note?")
+                .setMessage("Are you sure you want to delete this note?")
                 .setPositiveButton("Yes"
-                ) { dialog, which ->
+                ) { _, _ ->
                     viewModel.deleteNoteData(item.id)
                 }
                 .setNegativeButton("No", null)
